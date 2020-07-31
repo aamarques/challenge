@@ -14,11 +14,11 @@ resource "aws_instance" "server" {
   subnet_id = element(local.subnet, count.index)
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.allow-supermario.id]
+  vpc_security_group_ids = [aws_security_group.allow-challenge.id]
 
   # the public SSH key
   key_name = aws_key_pair.mykeypair.key_name
-  
+
   # Name of Server using the index count
   tags = {
     Name = "Server ${count.index}"

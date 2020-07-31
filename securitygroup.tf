@@ -1,33 +1,12 @@
-resource "aws_security_group" "allow-ssh" {
+resource "aws_security_group" "allow-challenge" {
   vpc_id      = aws_vpc.main.id
-  name        = "allow-ssh"
-  description = "security group that allows ssh and all egress traffic"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  name        = "allow-challenge"
+  description = "security group that allows ssh and 8600 and all egress traffic"
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Name = "allow-ssh"
-  }
-}
-
-resource "aws_security_group" "allow-supermario" {
-  vpc_id      = aws_vpc.main.id
-  name        = "allow-supermario"
-  description = "security group that allows port 8600 and all egress traffic"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -37,7 +16,14 @@ resource "aws_security_group" "allow-supermario" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
-    Name = "allow-supermario"
+    Name = "allow-challange"
   }
 }

@@ -16,7 +16,7 @@ variable "public_key" {
   default = "keys/mykey.pub"
 }
 
-variable "instance_type"{
+variable "instance_type" {
   default = "t2.micro"
 }
 
