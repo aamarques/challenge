@@ -1,7 +1,7 @@
 resource "aws_security_group" "allow-challenge" {
   vpc_id      = aws_vpc.main.id
   name        = "allow-challenge"
-  description = "security group that allows ssh and 8600 and all egress traffic"
+  description = "security group that allows ssh, http from elb and all egress traffic"
 
   ingress {
     from_port   = 22
@@ -11,10 +11,11 @@ resource "aws_security_group" "allow-challenge" {
   }
 
   ingress {
-    from_port   = 8600
-    to_port     = 8600
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.elb-securitygroup.id]
+
   }
   egress {
     from_port   = 0
@@ -27,3 +28,26 @@ resource "aws_security_group" "allow-challenge" {
     Name = "allow-challange"
   }
 }
+
+resource "aws_security_group" "elb-securitygroup" {
+  vpc_id      = aws_vpc.main.id
+  name        = "elb"
+  description = "security group for load balancer"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "elb"
+  }
+}
+
