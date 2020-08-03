@@ -16,12 +16,18 @@ resource "aws_elb" "challenge-elb" {
     interval            = 30
   }
 
-  instances = ["${aws_instance.server[0].id}", "${aws_instance.server[1].id}"]
+  instances                   = ["${aws_instance.server[0].id}", "${aws_instance.server[1].id}"]
   cross_zone_load_balancing   = true
   connection_draining         = true
   connection_draining_timeout = 400
   tags = {
     Name = "challenge-elb"
   }
+
 }
 
+resource "null_resource" "waiting_instances_became_ready" {
+  provisioner "local-exec" {
+    command = "sleep 120;export ANSIBLE_HOST_KEY_CHECKING=False; ansible-playbook -i ansible/hosts  --key-file keys/mykey -u ubuntu ansible/playbook.yml; rm -f ansible/hosts"
+  }
+}

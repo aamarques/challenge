@@ -11,9 +11,9 @@ resource "aws_security_group" "allow-challenge" {
   }
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
     security_groups = [aws_security_group.elb-securitygroup.id]
 
   }
@@ -50,4 +50,3 @@ resource "aws_security_group" "elb-securitygroup" {
     Name = "elb"
   }
 }
-

@@ -1,0 +1,10 @@
+[Unit]
+Description=Supermario Chalenge
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run -d -p 8600:8080 bharathshetty4/supermario 
+
+[Install]
+WantedBy=multi-user.target

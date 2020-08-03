@@ -1,4 +1,4 @@
-# Prego-way to create 2 (or more) instances in different subnets
+# Use the local vars to create 2 (or more) instances in different subnets
 locals {
   subnet = concat([aws_subnet.public-a.id], [aws_subnet.public-b.id])
 }
@@ -23,4 +23,9 @@ resource "aws_instance" "server" {
   tags = {
     Name = "Server ${count.index}"
   }
+
+  provisioner "local-exec" {
+    command = "echo  ${self.public_ip} >> ansible/hosts"
+  }
+
 }

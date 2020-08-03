@@ -1,9 +1,10 @@
-# default region if AWS_REGION was not exported 
+# default region if AWS_REGION. 
+# The AMI ID is related to REGION. If you change it you should change rhe AMI ID too 
 variable "AWS_REGION" {
   default = "eu-west-1"
 }
 
-# AMI selected from https://cloud-images.ubuntu.com/locator/ec2/
+# AMI to eu-west-1 selected from https://cloud-images.ubuntu.com/locator/ec2/
 variable "AMI" {
   default = "ami-0a74b2559fb675b98"
 }
